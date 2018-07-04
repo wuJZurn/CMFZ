@@ -1,3 +1,5 @@
+<%@ page import="java.net.URL" %>
+<%@ page import="java.net.URLDecoder" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 		 pageEncoding="utf-8" isELIgnored="false" %>
 <head>
@@ -29,7 +31,7 @@
 		//});
 
 		function run() {
-		    var str = "${cookie.checkName.value}"
+		    var str = "${cookie.checkName.value}";
 			var newstr = decodeURI(str);
 		    document.getElementById("myName").value=newstr;
         }
@@ -37,7 +39,7 @@
 	</script>
 </head>
 <body onload="run()">
-	
+
 		<div class="login">
 			<form id="loginForm" action="${pageContext.request.contextPath}/manager/login" method="post" >
 				<table>

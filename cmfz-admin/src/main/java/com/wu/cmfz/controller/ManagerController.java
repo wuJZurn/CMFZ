@@ -25,8 +25,6 @@ public class ManagerController {
 
     @RequestMapping("/login")
     public String loginManger(String managerName, String password, String code,String checkName, HttpServletResponse response, HttpServletRequest request) throws UnsupportedEncodingException {
-        System.out.println(managerName+" "+password);
-        managerName= URLEncoder.encode(managerName,"UTF-8");
         HttpSession session = request.getSession();
 
         String vcode=(String) session.getAttribute("code");
@@ -38,13 +36,15 @@ public class ManagerController {
 
         if(manager!=null){
             if(checkName!=null){
-                Cookie cookie =new Cookie("checkName",managerName);
-                cookie.setMaxAge(60*60);
+                Cookie cookie =new Cookie("checkName",URLEncoder.encode(managerName,"UTF-8"));
+                cookie.setMaxAge(2400);
                 cookie.setPath("/");
                 response.addCookie(cookie);
             }
             return "index";
         }
+
+
         return "login";
     }
 }
