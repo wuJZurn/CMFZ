@@ -9,7 +9,9 @@ import com.wu.cmfz.utils.NewValidateCodeUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
+/*
+验证码类
+ */
 @Controller
 public class GetValidateCodeController {
 

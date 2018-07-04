@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.security.NoSuchAlgorithmException;
 
 /**
+ * service实现类
+ * 管理员信息
  * Created by wu on 2018/7/4.
  */
 @Service

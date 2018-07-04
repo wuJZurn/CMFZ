@@ -14,6 +14,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 /**
+ * 管理员Controller类
  * Created by wu on 2018/7/4.
  */
 @Controller
