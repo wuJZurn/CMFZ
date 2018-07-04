@@ -13,7 +13,7 @@
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
         <property name="username" value="root" />
         <property name="password" value="root" />
-        <property name="url" value="jdbc:mysql//localhost:3306/cmfz" />
+        <property name="url" value="jdbc:mysql://localhost:3306/cmfz" />
     </bean>
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
