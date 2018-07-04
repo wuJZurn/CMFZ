@@ -3,10 +3,14 @@ package com.wu.cmfz.service.impl;
 import com.wu.cmfz.dao.ManagerDao;
 import com.wu.cmfz.entity.Manager;
 import com.wu.cmfz.service.ManagerService;
+import com.wu.cmfz.utils.EncryptionUtils;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Created by wu on 2018/7/4.
@@ -21,8 +25,10 @@ public class ManagerServiceImpl implements ManagerService{
     @Override
     @Transactional(propagation = Propagation.SUPPORTS,readOnly = true)
     public Manager queryManagerByName(String name, String pwd) {
+
         Manager manager = managerDao.selectByName(name);
-        if(manager.getMgrPwd().equals(pwd)){
+        String password= DigestUtils.md5Hex(pwd+manager.getSalt());
+        if(manager.getMgrPwd().equals(password)){
             return manager;
         }
         return null;
@@ -40,6 +46,23 @@ public class ManagerServiceImpl implements ManagerService{
 
     @Override
     public boolean addManager(Manager manager) {
-        return false;
+
+        manager.setMgrId(4);
+        manager.setMgrName("shacha");
+        manager.setMgrPwd("123123");
+        manager.setMgrStatus("1");
+
+        String salt= EncryptionUtils.getRandomSalt(6);
+        manager.setSalt(salt);
+        try {
+            manager.setMgrPwd(EncryptionUtils.encryption(manager.getMgrPwd()+salt));
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(manager);
+        boolean a=managerDao.insertManager(manager);
+
+        return a;
     }
 }

@@ -24,4 +24,12 @@ public class TestCookie {
 
     }
 
+    @Test
+    public void test2(){
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+        ManagerService managerService = (ManagerService) applicationContext.getBean("managerServiceImpl");
+        boolean manager = managerService.addManager(new Manager());
+        System.out.println(manager);
+    }
+
 }

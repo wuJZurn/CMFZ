@@ -15,20 +15,34 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/script/common.js"></script>
 	<script type="text/javascript">
 	
-		//$(function(){
+	$(function(){
 			//点击更换验证码：
 /*
 			$("#imgVcode").click(function(){//点击更换验证码
                 $("#imgVcode").src='/getVcode?time-'+(new Date()).getTime();
 			});*/
 			
-			/*//  form 表单提交
+			//  form 表单提交
 			 $("#loginForm").bind("submit",function(){
-			 alert("自己做");
+			 var name=$("#myName").val();
+			 var pwd=$("#myPwd").val();
+			 var code=$("#enCode").val();
+			 if(name==""){
+                 alert("用户名不能为空！");
+             }
+             if(pwd==""){
+                 alert("密码不能为空！");
+             }
+             if(code==""){
+                 alert("验证码不能为空！");
+             }
+             if(name!=""&&pwd!=""&&code!=""){
+                 return true;
+             }
 			 return false;
-			 });*/
+			 });
 
-		//});
+	});
 
 		function run() {
 		    var str = "${cookie.checkName.value}";
@@ -60,7 +74,7 @@
 								密&nbsp;&nbsp;&nbsp;码:
 							</th>
 							<td>
-								<input type="password" name="password" class="text" value="" maxlength="20" autocomplete="off"/>
+								<input type="password" id="myPwd" name="password" class="text" value="" maxlength="20" autocomplete="off"/>
 							</td>
 					  </tr>
 					

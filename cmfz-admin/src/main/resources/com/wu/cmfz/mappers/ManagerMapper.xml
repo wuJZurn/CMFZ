@@ -12,5 +12,9 @@
     <select id="selectByName" resultMap="ManagerMap">
         select mgr_id,mgr_name,mgr_pwd,salt,mgr_status from manager where mgr_name=#{name}
     </select>
+
+    <insert id="insertManager">
+        insert into manager values(#{mgrId},#{mgrName},#{mgrPwd},#{salt},#{mgrStatus})
+    </insert>
     
 </mapper>
