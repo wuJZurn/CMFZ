@@ -13,11 +13,11 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/script/common.js"></script>
 	<script type="text/javascript">
 	
-		$(function(){
+		//$(function(){
 			//点击更换验证码：
 /*
 			$("#imgVcode").click(function(){//点击更换验证码
-                $("#imgVcode").src='${pageContext.request.contextPath}/getVcode?time-'+(new Date()).getTime();
+                $("#imgVcode").src='/getVcode?time-'+(new Date()).getTime();
 			});*/
 			
 			/*//  form 表单提交
@@ -26,10 +26,17 @@
 			 return false;
 			 });*/
 
-		});
+		//});
+
+		function run() {
+		    var str = "${cookie.checkName.value}"
+			var newstr = decodeURI(str);
+		    document.getElementById("myName").value=newstr;
+        }
+
 	</script>
 </head>
-<body>
+<body onload="run()">
 	
 		<div class="login">
 			<form id="loginForm" action="${pageContext.request.contextPath}/manager/login" method="post" >
@@ -43,7 +50,7 @@
 								用户名:
 							</th>
 							<td>
-								<input type="text"  name="managerName" class="text" value="${cookie.ManagerName.value }" maxlength="20"/>
+								<input type="text" id="myName"  name="managerName" class="text" value="" maxlength="20"/>
 							</td>
 					  </tr>
 					  <tr>

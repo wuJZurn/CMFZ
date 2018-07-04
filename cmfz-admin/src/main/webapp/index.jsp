@@ -3,5 +3,6 @@
 <html>
 <body>
 <h2>Hello World!</h2>
+<a href="${pageContext.request.contextPath}/login.jsp">登出</a>
 </body>
 </html>
