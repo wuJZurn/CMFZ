@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>    
+<!DOCTYPE generatorConfiguration    
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"    
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">    
+<generatorConfiguration> 
+	<!-- <properties resource="generate.properties" /> -->   
+    <classPathEntry  location="E:\JavaWeb\JDBC\Jars\ojdbc6.jar"/>    
+    <context id="DB2Tables"  targetRuntime="MyBatis3">    
+        <commentGenerator>    
+            <property name="suppressDate" value="true"/>    
+            <property name="suppressAllComments" value="true"/>    
+        </commentGenerator>    
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql//localhost:3306/cmfz" userId="root" password="root">
+        </jdbcConnection>    
+        <javaTypeResolver>    
+            <property name="forceBigDecimals" value="false"/>    
+        </javaTypeResolver>   
+        <javaModelGenerator targetPackage="com.wu.cmfz.entity" targetProject="cmfz-admin">
+            <property name="enableSubPackages" value="false"/>    
+            <property name="trimStrings" value="true"/>    
+        </javaModelGenerator>    
+        <!--<table   tableName="d_book" domainObjectName="Book" >
+        	<columnOverride column="author_summary" javaType="java.lang.String" jdbcType="VARCHAR" />
+        	<columnOverride column="catalogue" javaType="java.lang.String" jdbcType="VARCHAR" /> 
+        </table> -->
+        <table tableName="manager" domainObjectName="Manager"></table>
+        </context>
+</generatorConfiguration>
