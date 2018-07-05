@@ -1,9 +1,11 @@
 package com.wu.cmfz.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by wu on 2018/7/4.
  */
-public class Manager {
+public class Manager implements Serializable{
     private Integer mgrId;
     private String mgrName;
     private String mgrPwd;

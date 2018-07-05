@@ -42,7 +42,13 @@ public class ManagerController {
                 cookie.setPath("/");
                 response.addCookie(cookie);
             }
-            return "index";
+            if(checkName==null){
+                Cookie cookie = new Cookie("checkName",null);
+                cookie.setMaxAge(0);
+                cookie.setPath("/");
+                response.addCookie(cookie);
+            }
+            return "main/main";
         }
 
 
