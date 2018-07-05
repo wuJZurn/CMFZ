@@ -38,7 +38,7 @@
 
 			        var content="";
 			        $.each(obj.secondMenuList,function(index1,obj1){
-						content+="<p style='text-align: center'><a class=\"easyui-linkbutton\" data-option=\"iconCls:'"+obj1.menuIcon+"',plain:true\" onclick=\"addTab('"+obj1.menuName+"')\">"+obj1.menuName+"</a></p>";
+						content+="<p style='text-align: center'><a class=\"easyui-linkbutton\" data-options=\"iconCls:'"+obj1.menuIcon+"',plain:true\" onclick=\"addTab('"+obj1.menuName+"')\">"+obj1.menuName+"</a></p>";
 					});
 
 					$('#aa').accordion('add',{
