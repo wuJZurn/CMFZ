@@ -11,7 +11,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript">
-    function addTab(menuName){
+    function addTab(menuName,path){
         var b =$("#tt").tabs("exists",menuName);
         if(b){
             $("#tt").tabs("selected",menuName);
@@ -19,6 +19,7 @@
             $("#tt").tabs("add",{
                 closable:true,
                 title:menuName,
+                href:"${pageContext.request.contextPath}/"+path,
             });
         }
     }
@@ -38,7 +39,8 @@
 
 			        var content="";
 			        $.each(obj.secondMenuList,function(index1,obj1){
-						content+="<p style='text-align: center'><a class=\"easyui-linkbutton\" data-options=\"iconCls:'"+obj1.menuIcon+"',plain:true\" onclick=\"addTab('"+obj1.menuName+"')\">"+obj1.menuName+"</a></p>";
+
+						content+="<p style='text-align: center'><a class=\"easyui-linkbutton\" data-options=\"iconCls:'"+obj1.menuIcon+"',plain:true\" onclick=\"addTab('"+obj1.menuName+"','"+obj1.menuUrl+"')\">"+obj1.menuName+"</a></p>";
 					});
 
 					$('#aa').accordion('add',{

@@ -3,8 +3,10 @@ package com.wu.test;
 import com.wu.cmfz.dao.ManagerDao;
 import com.wu.cmfz.entity.Manager;
 import com.wu.cmfz.entity.Menu;
+import com.wu.cmfz.entity.Picture;
 import com.wu.cmfz.service.ManagerService;
 import com.wu.cmfz.service.MenuService;
+import com.wu.cmfz.service.PictureService;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -12,6 +14,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by wu on 2018/7/4.
@@ -42,6 +45,18 @@ public class TestCookie {
         List<Menu> menus = serviceImpl.queryAllMenu();
         for (Menu menu : menus) {
             System.out.println(menu);
+        }
+    }
+
+
+
+    @Test
+    public void test5(){
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+        PictureService pictureService = (PictureService) applicationContext.getBean("pictureServiceImpl");
+        Map<String, Object> stringObjectMap = pictureService.queryAllPic(2, 1);
+        for (Object s : stringObjectMap.entrySet()) {
+            System.out.println(s);
         }
     }
 
