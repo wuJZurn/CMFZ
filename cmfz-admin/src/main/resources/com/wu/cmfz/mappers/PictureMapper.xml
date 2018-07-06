@@ -25,9 +25,26 @@
         select count(*) from picture
     </select>
 
+    <select id="selectPicById" resultMap="PicMap">
+        SELECT
+        picture_id,
+        picture_path,
+        picture_date,
+        picture_description,
+        picture_status
+        FROM
+        picture
+        where picture_id=#{picId}
+    </select>
+
     <insert id="insertPic">
         insert into picture
         values(#{pictureId},#{picturePath},#{pictureDate},#{pictureDescription},#{pictureStatus})
     </insert>
+
+    <update id="updatePic">
+        update picture set picture_description=#{pictureDescription},picture_status=#{pictureStatus}
+        where picture_id=#{pictureId} 
+    </update>
     
 </mapper>

@@ -38,8 +38,6 @@ $(function() {
 			return '<table><tr>' +
                 '<td rowspan=2 style="border:0"><img src="/admin/upload' + rowData.picturePath + '" style="height:50px;"></td>' +
                 '<td style="border:0">' +
-                '<p>描述: ' + rowData.pictureDescription + '</p>' +
-                '<p>状态: ' + rowData.pictureStatus + '</p>' +
                 '</td>' +
                 '</tr></table>';
         }
@@ -103,6 +101,65 @@ $(function() {
         }
     });
 });
+
+function modfiyBtn(){
+    $("#dialog").dialog({
+        iconCls:'icon-pictures',
+        width:400,
+        height:250,
+        title:"修改轮播图",
+        href:"${pageContext.request.contextPath}/main/updatePic.jsp",
+        modal:true,
+        minimizable:true,
+        maximizable:true,
+        onLoad:function(){
+            var rowData = $("#tt1").datagrid("getSelected");
+            $("#ff2").form("load",rowData);
+        },
+
+        buttons:[{
+            iconCls:"icon-dvd_add",
+            text:"修改",
+            handler:function(){
+                //提交
+                $("#ff2").form("submit",{
+                    url:"${pageContext.request.contextPath}/picture/updatePic",
+                    onSubmit:function(){
+                        return $("#ff2").form("validate");
+                    },
+                    success:function(res){
+                        if(res == "success"){
+                            $.messager.show({
+                                title:"提示",
+                                msg:"修改成功！",
+                                timeout:5000,
+                                showType:"slider",
+                            });
+                            $("#dialog").dialog("close");
+                            $("#dg").datagrid({
+                                url:"${pageContext.request.contextPath}/main/main.jsp",
+                            });
+                        }else{
+                            $.messager.show({
+                                title:"提示",
+                                msg:"修改失败！",
+                                timeout:5000,
+                                showType:"slider",
+                            });
+                            $("#dialog").dialog("close");
+                        }
+                    }
+                });
+            }
+        },{
+            iconCls:"icon-cancel",
+            text:"取消",
+            handler:function(){
+                $("#dialog").dialog("close");
+            }
+        }],
+    });
+}
 
 </script>
 

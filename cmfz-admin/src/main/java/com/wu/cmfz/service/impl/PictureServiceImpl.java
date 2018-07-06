@@ -34,6 +34,13 @@ public class PictureServiceImpl implements PictureService{
     }
 
     @Override
+    @Transactional(propagation = Propagation.SUPPORTS,readOnly = true)
+    public Picture queryPicById(String id) {
+        Picture picture = pictureDao.selectPicById(id);
+        return picture;
+    }
+
+    @Override
     public boolean addPic(Picture picture) {
         boolean a=pictureDao.insertPic(picture);
         return a;
@@ -41,7 +48,8 @@ public class PictureServiceImpl implements PictureService{
 
     @Override
     public boolean modifyPic(Picture picture) {
-        return false;
+        boolean b = pictureDao.updatePic(picture);
+        return b;
     }
 
     @Override

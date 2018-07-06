@@ -12,6 +12,7 @@ public interface PictureDao {
 
     public List<Picture> selectAllPic(@Param("begin") int begin, @Param("showSize") int showSize);
     public int countPic();
+    public Picture selectPicById(String picId);
     public boolean updatePic(Picture picture);
     public boolean insertPic(Picture picture);
     public boolean deletePic(Picture picture);

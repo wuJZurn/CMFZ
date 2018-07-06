@@ -35,8 +35,7 @@ public class PictureController {
     @RequestMapping("/addPic")
     @ResponseBody
     public String addPic(Picture picture, MultipartFile myFile,HttpSession session) throws IOException {
-
-        String realPath=session.getServletContext().getRealPath("/upload");
+        String realPath=session.getServletContext().getRealPath("").replace("admin","upload");
         String fileName= UUID.randomUUID().toString().replace("-","");
         String oldName = myFile.getOriginalFilename();
         File dir = new File(realPath,oldName);
@@ -49,6 +48,24 @@ public class PictureController {
         picture.setPicturePath("/"+oldName);
         picture.setPictureId(fileName);
         boolean a=pictureService.addPic(picture);
+        if(a){
+            return "success";
+        }
+        return "false";
+    }
+
+    @RequestMapping("/queryPicById")
+    @ResponseBody
+    public Picture queryPicById(String picId){
+        Picture picture = pictureService.queryPicById(picId);
+        return picture;
+    }
+
+    @RequestMapping("/updatePic")
+    @ResponseBody
+    public String updatePic(String pictureId,String pictureDescription,String pictureStatus,String picturePath){
+        System.out.println("aaaa");
+        boolean a = pictureService.modifyPic(new Picture(pictureId,picturePath,null,pictureDescription,pictureStatus));
         if(a){
             return "success";
         }
