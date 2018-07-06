@@ -3,15 +3,18 @@ package com.wu.cmfz.entity;
 import com.alibaba.fastjson.annotation.JSONField;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by wu on 2018/7/5.
  */
-public class Picture {
+public class Picture implements Serializable{
     private String pictureId;
     private String picturePath;
-    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+
+    @JSONField(format="yyyy-MM-dd HH:mm:ss") //响应
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") //请求
     private Date pictureDate;
     private String pictureDescription;
     private String pictureStatus;

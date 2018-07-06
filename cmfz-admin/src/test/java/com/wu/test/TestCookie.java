@@ -5,6 +5,7 @@ import com.wu.cmfz.entity.Manager;
 import com.wu.cmfz.entity.Menu;
 import com.wu.cmfz.entity.Picture;
 import com.wu.cmfz.service.ManagerService;
+import com.wu.cmfz.service.MasterService;
 import com.wu.cmfz.service.MenuService;
 import com.wu.cmfz.service.PictureService;
 import org.junit.Test;
@@ -55,6 +56,16 @@ public class TestCookie {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
         PictureService pictureService = (PictureService) applicationContext.getBean("pictureServiceImpl");
         Map<String, Object> stringObjectMap = pictureService.queryAllPic(2, 1);
+        for (Object s : stringObjectMap.entrySet()) {
+            System.out.println(s);
+        }
+    }
+
+    @Test
+    public void test6(){
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+        MasterService masterService =  (MasterService)applicationContext.getBean("masterServiceImpl");
+        Map<String, Object> stringObjectMap = masterService.queryMaster(1,1,null,null);
         for (Object s : stringObjectMap.entrySet()) {
             System.out.println(s);
         }

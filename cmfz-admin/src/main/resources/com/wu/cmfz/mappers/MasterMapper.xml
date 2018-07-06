@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "../mybatis-3-mapper.dtd" >
+<mapper namespace="com.wu.cmfz.dao.MasterDao">
+    <resultMap id="MasterMap" type="Master">
+        <id property="masterId" column="master_id"/>
+        <result property="masterName" column="master_name"/>
+        <result property="masterPhoto" column="master_photo"/>
+        <result property="masterSummary" column="master_summary"/>
+    </resultMap>
+
+    <select id="selectMaster" resultMap="MasterMap">
+        select master_id,master_name,master_photo,master_summary
+        from master
+        <if test="sele!=null">where master_name like #{masterName}</if>
+        limit #{begin},#{showSize}
+    </select>
+
+    <select id="countMaster" resultType="int">
+         select count(*) from master
+         <if test="sele!=null">where master_name like #{masterName}</if>
+    </select>
+
+    <insert id="insertMaster">
+         insert into master(master_name,master_photo,master_summary)
+         values(#{masterName},#{masterPhoto},#{masterSummary})
+    </insert>
+
+
+
+</mapper>
