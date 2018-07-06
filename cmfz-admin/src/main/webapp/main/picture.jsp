@@ -75,7 +75,7 @@ $(function() {
                                     });
                                     $("#dialog").dialog("close");
                                     $("#dg").datagrid({
-                                        url:"${pageContext.request.contextPath}/main/main.jsp",
+                                        url:"${pageContext.request.contextPath}/picture/showPic",
                                     });
                                 }else{
                                     $.messager.show({
@@ -136,8 +136,8 @@ function modfiyBtn(){
                                 showType:"slider",
                             });
                             $("#dialog").dialog("close");
-                            $("#dg").datagrid({
-                                url:"${pageContext.request.contextPath}/main/main.jsp",
+                            $("#tt1").datagrid({
+                                url:"${pageContext.request.contextPath}/picture/showPic",
                             });
                         }else{
                             $.messager.show({

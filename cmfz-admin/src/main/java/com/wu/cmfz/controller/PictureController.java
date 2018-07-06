@@ -64,7 +64,6 @@ public class PictureController {
     @RequestMapping("/updatePic")
     @ResponseBody
     public String updatePic(String pictureId,String pictureDescription,String pictureStatus,String picturePath){
-        System.out.println("aaaa");
         boolean a = pictureService.modifyPic(new Picture(pictureId,picturePath,null,pictureDescription,pictureStatus));
         if(a){
             return "success";

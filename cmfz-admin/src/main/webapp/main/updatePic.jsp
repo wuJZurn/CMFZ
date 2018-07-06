@@ -3,7 +3,10 @@
 
 <script type="text/javascript">
 $(function() {
-
+    $('#setPic1').filebox({
+        buttonText: '选择文件',
+        buttonAlign: 'right'
+    })
 });
 
 </script>
@@ -18,7 +21,7 @@ $(function() {
 				<option value="未展示">不展示</option>
 			</select>
 		</p>
-		<p>轮播图名称：<input id="setPic1" name="picturePath" class="easyui-textbox" readonly="readonly" ></p>
+		<p>轮播图名称：<input id="setPic1" name="picturePath" readonly="readonly" ></p>
 	</form>
 </div>
 
