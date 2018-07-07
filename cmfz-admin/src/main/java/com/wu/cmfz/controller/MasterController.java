@@ -13,9 +13,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by wu on 2018/7/6.
@@ -40,7 +43,15 @@ public class MasterController {
 
     @RequestMapping("/addMaster")
     @ResponseBody
-    public String addMaster(Master master){
+    public String addMaster(Master master,MultipartFile masterFile,HttpSession session) throws IOException {
+        String realPath=session.getServletContext().getRealPath("").replace("admin","upload/master");
+        String oldName = masterFile.getOriginalFilename();
+        File dir = new File(realPath,oldName);
+        if(!dir.exists()){
+            dir.mkdirs();
+        }
+        masterFile.transferTo(dir);
+        master.setMasterPhoto("/"+oldName);
         boolean b = masterService.addMaster(master);
         if(b){
             return "success";
@@ -51,7 +62,7 @@ public class MasterController {
     @RequestMapping("/modifyMaster")
     @ResponseBody
     public String modifyMaster(Master master){
-        boolean b = masterService.addMaster(master);
+        boolean b = masterService.modifyMaster(master);
         if(b){
             return "success";
         }

@@ -25,6 +25,11 @@
          values(#{masterName},#{masterPhoto},#{masterSummary})
     </insert>
 
+    <update id="updateMaster">
+         update master set master_name=#{masterName},master_summary=#{masterSummary}
+         where master_id=#{masterId}
+    </update>
+
 
 
 </mapper>

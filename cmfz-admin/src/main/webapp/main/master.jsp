@@ -33,7 +33,7 @@ $(function() {
         view: detailview,
         detailFormatter: function(rowIndex, rowData){
 			return '<table><tr>' +
-                '<td rowspan=2 style="border:0"><img src="/admin/upload/master' + rowData.picturePath + '" style="height:50px;"></td>' +
+                '<td rowspan=2 style="border:0"><img src="/admin/upload/master' + rowData.masterPhoto + '" style="height:50px;"></td>' +
                 '<td style="border:0">' +
                 '</td>' +
                 '</tr></table>';
@@ -49,7 +49,7 @@ $(function() {
                 width:400,
                 height:250,
                 title:"添加上师",
-                href:"${pageContext.request.contextPath}/main/formPic.jsp",
+                href:"${pageContext.request.contextPath}/main/formMaster.jsp",
                 modal:true,
 				minimizable:true,
 				maximizable:true,
@@ -184,13 +184,13 @@ function modMasterBtn(){
         width:400,
         height:250,
         title:"修改上师信息",
-        href:"${pageContext.request.contextPath}/main/updatePic.jsp",
+        href:"${pageContext.request.contextPath}/main/updateMaster.jsp",
         modal:true,
         minimizable:true,
         maximizable:true,
         onLoad:function(){
             var rowData = $("#ttMaster").datagrid("getSelected");
-            $("#ff2Master").form("load",rowData);
+            $("#ffUpdateMaster").form("load",rowData);
         },
 
         buttons:[{
@@ -198,10 +198,10 @@ function modMasterBtn(){
             text:"修改",
             handler:function(){
                 //提交
-                $("#ff2Master").form("submit",{
+                $("#ffUpdateMaster").form("submit",{
                     url:"${pageContext.request.contextPath}/master/modifyMaster",
                     onSubmit:function(){
-                        return $("#ff2Master").form("validate");
+                        return $("#ffUpdateMaster").form("validate");
                     },
                     success:function(res){
                         if(res == "success"){
