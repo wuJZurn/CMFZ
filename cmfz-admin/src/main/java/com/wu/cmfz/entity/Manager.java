@@ -7,6 +7,7 @@ import java.io.Serializable;
  */
 public class Manager implements Serializable{
     private Integer mgrId;
+    
     private String mgrName;
     private String mgrPwd;
     private String salt;

@@ -1,13 +1,20 @@
 package com.wu.cmfz.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.wu.cmfz.entity.Master;
 import com.wu.cmfz.service.MasterService;
+import org.jeecgframework.poi.excel.ExcelImportUtil;
+import org.jeecgframework.poi.excel.entity.ImportParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -50,4 +57,45 @@ public class MasterController {
         }
         return "false";
     }
+
+    @RequestMapping("/importMaster")
+    @ResponseBody
+    public String importExcel(MultipartFile subfile, HttpServletRequest request){
+        try {
+
+            ImportParams params = new ImportParams();
+            params.setHeadRows(1);
+            params.setNeedSave(true);
+
+            String path=request.getSession().getServletContext().getRealPath("");
+
+            File f = new File(path+"/excel/"+subfile.getOriginalFilename());
+
+            if(!f.exists()){
+                try {
+                    File dir = new File(path+"/excel/");
+                    dir.mkdirs();
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+            subfile.transferTo(f);
+            List<Master> masters = ExcelImportUtil.importExcel(f,Master.class, params);
+            for (Master master : masters) {
+                master.setMasterPhoto(null);
+                masterService.addMaster(master);
+            }
+            if(masters.isEmpty()){
+               return "false";
+            }
+            System.out.println(JSON.toJSONString(masters));
+            return "success";
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "false";
+    }
+
+
 }

@@ -16,7 +16,7 @@ $(function() {
 <div style="margin-top: 40px;margin-left: 60px">
 	<form id="ffSubMaster" method="post" enctype="multipart/form-data">
 		<p>上传批量添加文件(EXCEL):
-			<input id="subMast" name="mySubFile" class="easyui-filebox" ></p>
+			<input id="subMast" name="subfile" class="easyui-filebox" ></p>
 	</form>
 </div>
 

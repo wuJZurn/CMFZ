@@ -1,5 +1,8 @@
 package com.wu.cmfz.entity;
 
+
+import org.jeecgframework.poi.excel.annotation.Excel;
+
 import java.io.Serializable;
 
 /**
@@ -7,9 +10,11 @@ import java.io.Serializable;
  */
 public class Master implements Serializable{
     private int masterId;
+    @Excel(name="上师姓名",orderNum = "1",needMerge = true)
     private String masterName;
-    private String masterPhoto;
+    @Excel(name="上师简介",orderNum = "2",needMerge = true)
     private String masterSummary;
+    private String masterPhoto;
 
     public int getMasterId() {
         return masterId;

@@ -117,7 +117,7 @@ $(function() {
                     handler:function(){
                         //提交
                         $("#ffSubMaster").form("submit",{
-                            url:"${pageContext.request.contextPath}/master/addMaster",
+                            url:"${pageContext.request.contextPath}/master/importMaster",
                             onSubmit:function(){
                                 return $("#ffSubMaster").form("validate");
                             },
