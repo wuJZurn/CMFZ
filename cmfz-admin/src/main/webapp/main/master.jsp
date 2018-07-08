@@ -189,8 +189,8 @@ function modMasterBtn(){
         minimizable:true,
         maximizable:true,
         onLoad:function(){
-            var rowData = $("#ttMaster").datagrid("getSelected");
-            $("#ffUpdateMaster").form("load",rowData);
+            var rowData1 = $("#ttMaster").datagrid("getSelected");
+            $("#ffUpdateMaster").form("load",rowData1);
         },
 
         buttons:[{

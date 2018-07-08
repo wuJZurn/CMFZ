@@ -10,10 +10,7 @@ $(function() {
 		height:50
 	});
 
-    $('#masterPic').filebox({
-        buttonText: '选择文件',
-        buttonAlign: 'right'
-    })
+
 
 });
 
@@ -24,7 +21,7 @@ $(function() {
 		<input name="masterId" hidden="hidden">
 		<p>上师姓名：<input id="masterName" class="easyui-textbox" name="masterName"></p>
 		<p>上师简介：<input id="masterSummary" class="easyui-textbox"  name="masterSummary"></p>
-		<p>上师图像：<input id="masterPic" name="masterPhoto" readonly="readonly" class="easyui-filebox" ></p>
+		<p>上师图像：<input id="masterPic" name="masterPhoto" readonly="readonly" class="easyui-textbox" ></p>
 	</form>
 </div>
 
