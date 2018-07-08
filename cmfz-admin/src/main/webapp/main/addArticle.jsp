@@ -13,6 +13,7 @@
         <p>文章标题：<input id="articletitle" class="easyui-textbox" name="articleName"></p>
         <p>文章作者：<input id="articleName" class="easyui-textbox"  name="articleAuthor"></p>
         <p>文章状态：<input name="articleStatus" class="easyui-switchbutton" style="width: 80px" data-options="onText:'上架',offText:'未上架'"></p>
+        <input id="editValue" name="introduction" type="text" hidden="hidden">
         <p>文章内容</p>
         <div id="editor" style="width: 800px"></div>
         </br>
@@ -33,8 +34,9 @@
 
     function addArticle(){
         var text=editor.txt.html();
+        document.getElementById("editValue").value=text;
         $("#ffArticle").form("submit",{
-            url:"${pageContext.request.contextPath}/article/addArticle?text="+text,
+            url:"${pageContext.request.contextPath}/article/addArticle",
             success:function(res){
                 if(res == "success"){
                     $.messager.show({

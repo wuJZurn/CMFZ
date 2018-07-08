@@ -37,12 +37,11 @@ public class ArticleController {
 
     @RequestMapping("/addArticle")
     @ResponseBody
-    public String addArticle(Article article,String text){
-
+    public String addArticle(Article article){
+        System.out.println(article);
         if(article.getArticleStatus()==null){
             article.setArticleStatus("off");
         }
-        article.setIntroduction(text);
         String name1= UUID.randomUUID().toString().replace("-","");
         article.setArticleId(name1);
         article.setMasterId(1);
