@@ -18,6 +18,8 @@
         <div id="editor" style="width: 800px"></div>
         </br>
         <a id="btn" onclick="addArticle()" class="easyui-linkbutton" data-options="iconCls:'icon-database_save'">提交文章信息</a>
+        <a id="btnClear" onclick="clearArticle()" class="easyui-linkbutton" data-options="iconCls:'icon-database_refresh'">重置内容</a>
+
 </div>
 </form>
 
@@ -32,6 +34,11 @@
     editor.customConfig.uploadFileName = 'files'; //上传图片的名称
     editor.create();
 
+    function clearArticle(){
+        $("#ffArticle").form('clear');
+        editor.txt.html('<p><br></p>');
+    }
+
     function addArticle(){
         var text=editor.txt.html();
         document.getElementById("editValue").value=text;
@@ -45,6 +52,8 @@
                         timeout:3000,
                         showType:"slider",
                     });
+                    $("#ffArticle").form('clear');
+                    editor.txt.html('<p><br></p>');
                 }else{
                     $.messager.show({
                         title:"提示",

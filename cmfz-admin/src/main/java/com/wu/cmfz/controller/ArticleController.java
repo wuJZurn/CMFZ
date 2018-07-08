@@ -61,11 +61,9 @@ public class ArticleController {
         try {
             String realPath = request.getRealPath("");
             String uploadPath=realPath.substring(0,realPath.lastIndexOf("\\"))+"\\upload\\article";
-            System.out.println(uploadPath);
             if(files!=null && files.length!=0){
                 for (MultipartFile file : files) {
                     String fileName = UUID.randomUUID().toString()+"."+ FilenameUtils.getExtension(file.getOriginalFilename());
-                    System.out.println(fileName);
                     file.transferTo(new File(uploadPath+"\\"+fileName));
                     data.add(request.getContextPath()+"/upload/article/"+fileName);
                 }
