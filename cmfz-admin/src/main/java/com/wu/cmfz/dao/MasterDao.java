@@ -11,7 +11,11 @@ import java.util.List;
 public interface MasterDao {
       public List<Master> selectMaster(@Param("begin") int begin, @Param("showSize") int showSize, @Param("sele") String sele, @Param("masterName") String masterName);
       public int countMaster(@Param("sele") String sele,@Param("masterName") String masterName);
+      public List<Master> selectMasterAll();
+
       public boolean updateMaster(Master master);
       public boolean deleteMaster(Master master);
       public boolean insertMaster(Master master);
+
+      public boolean insertAllMaster(@Param("list") List<Master> list);
 }

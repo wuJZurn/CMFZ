@@ -15,6 +15,11 @@
         limit #{begin},#{showSize}
     </select>
 
+    <select id="selectMasterAll" resultMap="MasterMap">
+        select master_id,master_name,master_photo,master_summary
+        from master
+    </select>
+
     <select id="countMaster" resultType="int">
          select count(*) from master
          <if test="sele!=null">where master_name like #{masterName}</if>
@@ -29,6 +34,14 @@
          update master set master_name=#{masterName},master_summary=#{masterSummary}
          where master_id=#{masterId}
     </update>
+
+    <insert id="insertAllMaster">
+        insert into master(master_name,master_photo,master_summary)
+        values
+        <foreach collection="list" separator="," item="listMaster">
+            (#{listMaster.masterName},#{listMaster.masterPhoto},#{listMaster.masterSummary})
+        </foreach>
+    </insert>
 
 
 

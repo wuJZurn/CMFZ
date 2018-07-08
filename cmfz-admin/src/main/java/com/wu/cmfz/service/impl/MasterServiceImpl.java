@@ -37,6 +37,11 @@ public class MasterServiceImpl implements MasterService {
     }
 
     @Override
+    public List<Master> queryAllMaster() {
+        return masterDao.selectMasterAll();
+    }
+
+    @Override
     public boolean addMaster(Master master) {
         return masterDao.insertMaster(master);
     }
@@ -44,5 +49,10 @@ public class MasterServiceImpl implements MasterService {
     @Override
     public boolean modifyMaster(Master master) {
         return masterDao.updateMaster(master);
+    }
+
+    @Override
+    public boolean addAllMaster(List<Master> list) {
+        return masterDao.insertAllMaster(list);
     }
 }

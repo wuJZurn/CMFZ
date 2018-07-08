@@ -3,7 +3,10 @@ package com.wu.cmfz.controller;
 import com.alibaba.fastjson.JSON;
 import com.wu.cmfz.entity.Master;
 import com.wu.cmfz.service.MasterService;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.jeecgframework.poi.excel.ExcelExportUtil;
 import org.jeecgframework.poi.excel.ExcelImportUtil;
+import org.jeecgframework.poi.excel.entity.ExportParams;
 import org.jeecgframework.poi.excel.entity.ImportParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
@@ -71,41 +76,42 @@ public class MasterController {
 
     @RequestMapping("/importMaster")
     @ResponseBody
-    public String importExcel(MultipartFile subfile, HttpServletRequest request){
+    public String importExcel(MultipartFile subfile){
         try {
-
             ImportParams params = new ImportParams();
             params.setHeadRows(1);
-            params.setNeedSave(true);
 
-            String path=request.getSession().getServletContext().getRealPath("");
+            List<Master> masters = ExcelImportUtil.importExcel(subfile.getInputStream(),Master.class, params);
 
-            File f = new File(path+"/excel/"+subfile.getOriginalFilename());
-
-            if(!f.exists()){
-                try {
-                    File dir = new File(path+"/excel/");
-                    dir.mkdirs();
-
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-            subfile.transferTo(f);
-            List<Master> masters = ExcelImportUtil.importExcel(f,Master.class, params);
-            for (Master master : masters) {
-                master.setMasterPhoto(null);
-                masterService.addMaster(master);
-            }
-            if(masters.isEmpty()){
-               return "false";
-            }
             System.out.println(JSON.toJSONString(masters));
-            return "success";
+            boolean a=masterService.addAllMaster(masters);
+            System.out.println(a);
+            if(a){
+               return "success";
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
         return "false";
+    }
+
+    @RequestMapping("/exportMaster")
+    public void exportExcel(HttpServletResponse response) throws IOException {
+
+        List<Master> masters = masterService.queryAllMaster();
+
+        Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams("test", "上师信息表"), Master.class, masters);
+
+        ServletOutputStream out = response.getOutputStream();
+
+        String fileName=new String("上师信息表.xls".getBytes(),"iso-8859-1");
+
+        response.setContentType("application/vnd.ms-excel");
+        response.setHeader("content-disposition","attachment;fileName="+fileName);
+
+        workbook.write(out);
+        out.close();
+
     }
 
 

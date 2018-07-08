@@ -99,6 +99,12 @@ $(function() {
         }
     });
 
+	$("#exportBtn").linkbutton({
+        onClick:function(){
+            location.href="${pageContext.request.contextPath}/master/exportMaster";
+		}
+	});
+
     $("#subBtn").linkbutton({
         onClick:function(){
             $("#dialogMaster").dialog({
@@ -252,6 +258,7 @@ function modMasterBtn(){
 		</div>
 		&nbsp
 		<a id="subBtn" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true,text:'批量添加'"></a>
+		<a id="exportBtn" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true,text:'全部导出'"></a>
 	</div>
 </div>
 <table id="ttMaster"></table>

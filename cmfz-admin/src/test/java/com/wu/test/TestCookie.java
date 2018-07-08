@@ -1,19 +1,19 @@
 package com.wu.test;
 
 import com.wu.cmfz.dao.ManagerDao;
+import com.wu.cmfz.entity.Article;
 import com.wu.cmfz.entity.Manager;
 import com.wu.cmfz.entity.Menu;
 import com.wu.cmfz.entity.Picture;
-import com.wu.cmfz.service.ManagerService;
-import com.wu.cmfz.service.MasterService;
-import com.wu.cmfz.service.MenuService;
-import com.wu.cmfz.service.PictureService;
+import com.wu.cmfz.service.*;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -71,6 +71,17 @@ public class TestCookie {
         }
     }
 
-   
+    @Test
+    public void test7(){
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+        ArticleService articleService =  (ArticleService)applicationContext.getBean("articleServiceImpl");
+        Map<String, Object> stringObjectMap = articleService.queryArticle(2,1);
+        for (Object s : stringObjectMap.entrySet()) {
+            System.out.println(s);
+        }
+    }
+
+
+
 
 }
