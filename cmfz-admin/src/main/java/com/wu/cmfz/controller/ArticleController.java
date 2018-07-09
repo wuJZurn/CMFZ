@@ -38,13 +38,11 @@ public class ArticleController {
     @RequestMapping("/addArticle")
     @ResponseBody
     public String addArticle(Article article){
-        System.out.println(article);
         if(article.getArticleStatus()==null){
             article.setArticleStatus("off");
         }
         String name1= UUID.randomUUID().toString().replace("-","");
         article.setArticleId(name1);
-        article.setMasterId(1);
         article.setArticleDate(new Date());
         boolean a=articleService.addArticle(article);
         if(a){

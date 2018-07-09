@@ -20,13 +20,11 @@ $(function() {
             {field:'pictureDate',title:'轮播图创建时间',width:80,sortable:true},
             {field:'status',title:'操作',width:60,align:'center',formatter:function(value,row,index){
                 //$("#del").linkbutton({});
-                return "<a class='easyui-linkbutton' data-options=\"height:20,iconCls:'icon-edit'\" onClick='modfiyBtn()'>修改</a>";
+                return "<a name='picA' class='easyui-linkbutton' data-options=\"height:20,iconCls:'icon-edit'\" onClick='modfiyBtn()'>修改</a>";
             }}
         ]],
         onLoadSuccess:function(){
-			/* console.log(11);
-			 $(".btn").linkbutton({}); */
-            $.parser.parse();
+            $("a[name='picA']").linkbutton({});
         },
         pagination:true,
         pageList : [ 5, 10, 15, 20, 25 ],

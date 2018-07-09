@@ -18,6 +18,8 @@ public class Article implements Serializable{
     private Date articleDate;
     private String articleStatus;
     private String articleAuthor;
+
+    //wangEditor需要的Json属性，data为多个选中
     private int errno;
     private List<String> data;
 

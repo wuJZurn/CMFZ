@@ -20,27 +20,17 @@ $(function() {
             {field:'articleDate',title:'创建时间',width:80,sortable:true},
             {field:'status',title:'操作',width:80,align:'center',formatter:function(value,row,index){
                 //$("#del").linkbutton({});
-                return "<a class='easyui-linkbutton' data-options=\"height:20,iconCls:'icon-edit'\" onClick='getArticleBtn()'>查看详情</a>";
+                return "<a name='artA' class='easyui-linkbutton' data-options=\"height:20,iconCls:'icon-edit'\" onClick='getArticleBtn()'>查看详情</a>";
             }}
         ]],
         onLoadSuccess:function(){
-			/* console.log(11);
-			 $(".btn").linkbutton({}); */
-            $.parser.parse();
+            $("a[name='artA']").linkbutton({});
         },
         pagination:true,
         pageList : [ 5, 10, 15, 20, 25 ],
         pageSize : 10,
         toolbar : "#tb",
 
-        view: detailview,
-        detailFormatter: function(rowIndex, rowData){
-			return '<table><tr>' +
-                '<td rowspan=2 style="border:0"><img src="/admin/upload' + rowData.picturePath + '" style="height:50px;"></td>' +
-                '<td style="border:0">' +
-                '</td>' +
-                '</tr></table>';
-        }
     });
 
 

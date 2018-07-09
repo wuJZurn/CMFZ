@@ -32,7 +32,7 @@ $(function() {
 <div style="margin-top: 40px;margin-left: 70px">
 	<form id="ff" method="post" enctype="multipart/form-data">
 		<p>轮播图描述：<input id="picDescrption" class="easyui-textbox" name="pictureDescription"></p>
-		<p>轮播图状态：<input id="picStatus" panelHeight="auto" class="easyui-combobox" width="50px" name="pictureStatus"></p>
+		<p>轮播图状态：<input id="picStatus" panelHeight="auto" class="easyui-combobox" width="50px" value="不展示" name="pictureStatus"></p>
 		<p>上传轮播图：<input id="setPic" name="myFile" class="easyui-filebox" ></p>
 	</form>
 </div>

@@ -15,7 +15,7 @@
     function addTab(menuName,path){
         var b =$("#tt").tabs("exists",menuName);
         if(b){
-            $("#tt").tabs("selected",menuName);
+            $("#tt").tabs("select",menuName);
         }else{
             $("#tt").tabs("add",{
                 closable:true,

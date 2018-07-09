@@ -11,7 +11,7 @@
 <form id="ffArticle" method="post" enctype="multipart/form-data">
 <div style="margin-top: 35px;margin-left: 75px">
         <p>文章标题：<input id="articletitle" class="easyui-textbox" name="articleName"></p>
-        <p>文章作者：<input id="articleName" class="easyui-textbox"  name="articleAuthor"></p>
+        <p>所属上师：<input id="articleName" panelHeight="auto" name="masterId" value="暂未知"></p>
         <p>文章状态：<input name="articleStatus" class="easyui-switchbutton" style="width: 80px" data-options="onText:'上架',offText:'未上架'"></p>
         <input id="editValue" name="introduction" type="text" hidden="hidden">
         <p>文章内容</p>
@@ -33,6 +33,14 @@
     editor.customConfig.uploadImgServer = '${pageContext.request.contextPath}/article/upload';  // 上传图片到服务器
     editor.customConfig.uploadFileName = 'files'; //上传图片的名称
     editor.create();
+    $(function() {
+
+        $('#articleName').combobox({
+        url:'${pageContext.request.contextPath}/master/showAllMaster',
+        valueField:'masterId',
+        textField:'masterName'
+          });
+    });
 
     function clearArticle(){
         $("#ffArticle").form('clear');

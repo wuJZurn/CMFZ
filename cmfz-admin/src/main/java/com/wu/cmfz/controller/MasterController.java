@@ -46,6 +46,13 @@ public class MasterController {
         return map;
     }
 
+    @RequestMapping("/showAllMaster")
+    @ResponseBody
+    public List<Master> showAllMaster(){
+        List<Master> masters = masterService.queryAllMaster();
+        return masters;
+    }
+
     @RequestMapping("/addMaster")
     @ResponseBody
     public String addMaster(Master master,MultipartFile masterFile,HttpSession session) throws IOException {
