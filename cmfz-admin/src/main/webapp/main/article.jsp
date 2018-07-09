@@ -15,7 +15,7 @@ $(function() {
         columns:[[
             {field:'articleId',title:'文章编号',width:100},
             {field:'articleName',title:'文章标题',width:80,sortable:true},
-            {field:'articleAuthor',title:'所属上师',width:80,sortable:true},
+            {field:'masterId',title:'所属上师ID',width:80,sortable:true},
             {field:'articleStatus',title:'文章状态',width:80,sortable:true},
             {field:'articleDate',title:'创建时间',width:80,sortable:true},
             {field:'status',title:'操作',width:80,align:'center',formatter:function(value,row,index){

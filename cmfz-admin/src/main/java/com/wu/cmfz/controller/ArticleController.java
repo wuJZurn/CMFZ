@@ -73,7 +73,6 @@ public class ArticleController {
             e.printStackTrace();
         }
         return article;
-
     }
 
 }
