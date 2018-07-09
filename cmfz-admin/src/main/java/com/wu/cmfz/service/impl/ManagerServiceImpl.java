@@ -49,8 +49,8 @@ public class ManagerServiceImpl implements ManagerService{
     @Override
     public boolean addManager(Manager manager) {
 
-        manager.setMgrId(4);
-        manager.setMgrName("shacha");
+        manager.setMgrId(3654444);
+        manager.setMgrName("lalal");
         manager.setMgrPwd("123123");
         manager.setMgrStatus("1");
 

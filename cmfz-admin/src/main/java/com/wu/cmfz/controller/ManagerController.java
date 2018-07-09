@@ -48,6 +48,8 @@ public class ManagerController {
                 cookie.setPath("/");
                 response.addCookie(cookie);
             }
+
+            session.setAttribute("user",managerName);
             return "main/main";
         }
 

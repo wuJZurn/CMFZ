@@ -26,8 +26,8 @@ public class TestCookie {
     public void test1() throws UnsupportedEncodingException {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
         ManagerService managerService = (ManagerService) applicationContext.getBean("managerServiceImpl");
-        Manager manager = managerService.queryManagerByName("吴","123456");
-        System.out.println(manager);
+        boolean b = managerService.addManager(new Manager());
+        System.out.println(b);
 
     }
 
@@ -77,6 +77,16 @@ public class TestCookie {
         ArticleService articleService =  (ArticleService)applicationContext.getBean("articleServiceImpl");
         Map<String, Object> stringObjectMap = articleService.queryArticle(2,1);
         for (Object s : stringObjectMap.entrySet()) {
+            System.out.println(s);
+        }
+    }
+
+    @Test
+    public void test8(){
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+        LoggerService loggerService =  (LoggerService)applicationContext.getBean("loggerServiceImpl");
+        Map<String, Object> map = loggerService.queryLogger(5, 1);
+        for (Object s : map.entrySet()) {
             System.out.println(s);
         }
     }
