@@ -14,6 +14,7 @@
     <select id="selectLogger" resultMap="loggerMap">
         select log_id,log_user,log_time,log_resource,log_action,log_message,log_result
         from logger
+        order by log_time desc
         limit #{begin},#{showSize}
     </select>
 

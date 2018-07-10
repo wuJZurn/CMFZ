@@ -26,48 +26,50 @@ public class MyAdvice {
     public void pc(){}
 
     @Around("pc()")
-    public Object around(ProceedingJoinPoint pjd){
+    public Object around(ProceedingJoinPoint pjp){
         Object obj=null;
-        String id=null;
-        String user=null;
         String action = null;
         String resource=null;
-        String message=null;
         String resTT="false";
-        try {
-            obj = pjd.proceed();
-            id= UUID.randomUUID().toString().replace("-","");
-            //HttpSession session=null;
-            //String
-            HttpServletRequest request =((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-            HttpSession session =request.getSession();
-            user = (String) session.getAttribute("user");
+        String id= UUID.randomUUID().toString().replace("-","");
+        //HttpSession session=null;
+        //String
+        HttpServletRequest request =((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        HttpSession session =request.getSession();
+        String user = (String) session.getAttribute("user");
 
-            MethodSignature methodSignature = (MethodSignature) pjd.getSignature();
-            Method method =methodSignature.getMethod();
-            String name = method.getName();
+        MethodSignature methodSignature = (MethodSignature) pjp.getSignature();
+        Method method =methodSignature.getMethod();
+        String name = method.getName();
 
-            if(name.contains("add")){
-                action = "add";
-                resource=name.replace("add","");
-            }
-            if(name.contains("modify")){
-                action ="modify";
-                resource=name.replace("modify","");
-            }
-            Object[] args = pjd.getArgs();
-            String message1=args[0].toString();
-            message=message1.replaceAll("\'","\\\\'");
-            resTT="success";
-        } catch (Exception e) {
-            e.printStackTrace();
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
+        if(name.contains("add")){
+            action = "add";
+            resource=name.replace("add","");
         }
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
-        LoggerService loggerService =  (LoggerService)applicationContext.getBean("loggerServiceImpl");
-        Logger logger=new Logger(id,user,resource,action,message,resTT);
-        loggerService.insertLogger(logger);
-        return obj;
+        if(name.contains("modify")){
+            action ="modify";
+            resource=name.replace("modify","");
+        }
+
+
+        StringBuilder message1 = new StringBuilder();
+
+        Object[] args = pjp.getArgs();
+        for (Object arg : args) {
+            message1.append(arg+";");
+        }
+        String message=message1.toString();
+        try {
+            obj = pjp.proceed();
+            resTT="success";
+        }catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }finally {
+            ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+            LoggerService loggerService =  (LoggerService)applicationContext.getBean("loggerServiceImpl");
+            Logger logger=new Logger(id,user,resource,action,message,resTT);
+            loggerService.insertLogger(logger);
+            return obj;
+        }
     }
 }
