@@ -29,7 +29,7 @@ $(function() {
         pagination:true,
         pageList : [ 5, 10, 15, 20, 25 ],
         pageSize : 5,
-        toolbar : "#tb",
+        toolbar : "#tbPic",
 
         view: detailview,
         detailFormatter: function(rowIndex, rowData){
@@ -162,7 +162,7 @@ function modfiyBtn(){
 </script>
 
 <div>
-	<div id="tb">
+	<div id="tbPic">
 		<a id="addPic" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true,text:'新增轮播图'"></a>
 		<a id="helpPic" class="easyui-linkbutton" data-options="iconCls:'icon-help',plain:true,text:'帮助'"></a>
 	</div>
