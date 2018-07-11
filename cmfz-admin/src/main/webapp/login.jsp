@@ -97,7 +97,11 @@
 							<label>
 								<input type="checkbox" name="checkName" id="isRememberUsername" value="true"/> 记住用户名
 							</label>
+							<label>
+								<input type="checkbox" name="rememberMe" id="isRememberUser" value="true"/> 记住我！
+							</label>
 						</td>
+
 					</tr>
 					<tr>
 						<td>&nbsp;</td>

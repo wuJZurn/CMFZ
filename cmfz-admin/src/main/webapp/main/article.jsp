@@ -24,7 +24,7 @@ $(function() {
             }}
         ]],
         onLoadSuccess:function(){
-            $("a[name='artA']").linkbutton({});
+            $("a[name='artA']").linkbutton({});   
         },
         pagination:true,
         pageList : [ 5, 10, 15, 20, 25 ],

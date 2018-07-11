@@ -2,6 +2,10 @@ package com.wu.cmfz.controller;
 
 import com.wu.cmfz.entity.Manager;
 import com.wu.cmfz.service.ManagerService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +29,7 @@ public class ManagerController {
     private ManagerService managerService;
 
     @RequestMapping("/login")
-    public String loginManger(String managerName, String password, String code,String checkName, HttpServletResponse response, HttpServletRequest request) throws UnsupportedEncodingException {
+    public String loginManger(String managerName, String password, String code,String checkName,boolean rememberMe,HttpServletResponse response, HttpServletRequest request) throws UnsupportedEncodingException {
         HttpSession session = request.getSession();
 
         String vcode=(String) session.getAttribute("code");
@@ -33,9 +37,9 @@ public class ManagerController {
         if(code.isEmpty() || !vcode.equalsIgnoreCase(code)){
             return "login";
         }
-        Manager manager = managerService.queryManagerByName(managerName,password);
-
-        if(manager!=null){
+        Subject subject = SecurityUtils.getSubject();
+        try {
+            subject.login(new UsernamePasswordToken(managerName,password,rememberMe));
             if(checkName!=null){
                 Cookie cookie =new Cookie("checkName",URLEncoder.encode(managerName,"UTF-8"));
                 cookie.setMaxAge(2400);
@@ -48,12 +52,12 @@ public class ManagerController {
                 cookie.setPath("/");
                 response.addCookie(cookie);
             }
-
             session.setAttribute("user",managerName);
             return "main/main";
+        } catch (AuthenticationException e) {
+            System.out.println("认证失败");
+            e.printStackTrace();
+            return "login";
         }
-
-
-        return "login";
     }
 }
