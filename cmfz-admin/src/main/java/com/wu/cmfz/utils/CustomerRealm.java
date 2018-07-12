@@ -1,6 +1,8 @@
 package com.wu.cmfz.utils;
 
 import com.wu.cmfz.entity.Manager;
+import com.wu.cmfz.entity.MgrPermission;
+import com.wu.cmfz.entity.MgrRole;
 import com.wu.cmfz.service.ManagerService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -10,6 +12,8 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 /**
@@ -24,11 +28,22 @@ public class CustomerRealm extends AuthorizingRealm {
     
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-
         String userName = (String) principalCollection.getPrimaryPrincipal();
+        List<MgrRole> mgrRoles = managerService.queryRolesByName(userName);
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        for (MgrRole mgrRole : mgrRoles) {
+            info.addRole(mgrRole.getRoleTag());
+        }
+        List<MgrPermission> mgrPermissions = managerService.queryPermissionByName(userName);
+        for (MgrPermission mgrPermission : mgrPermissions) {
+            info.addStringPermission(mgrPermission.getPermissionTag());
+        }
+        return info;
+
+        /*
         Manager manager = managerService.queryManagerByName(userName);
         if(manager.getMgrName().equals(userName)){
-            SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+
             info.addRole("root");
             info.addRole("admin");
             info.addRole("user");
@@ -37,9 +52,7 @@ public class CustomerRealm extends AuthorizingRealm {
             info.addStringPermission("user:query");
             info.addStringPermission("user:remove");
             return info;
-        }
-
-        return null;
+        }*/
     }
 
     @Override

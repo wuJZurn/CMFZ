@@ -2,6 +2,8 @@ package com.wu.cmfz.service.impl;
 
 import com.wu.cmfz.dao.ManagerDao;
 import com.wu.cmfz.entity.Manager;
+import com.wu.cmfz.entity.MgrPermission;
+import com.wu.cmfz.entity.MgrRole;
 import com.wu.cmfz.service.ManagerService;
 import com.wu.cmfz.utils.EncryptionUtils;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -12,6 +14,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 /**
  * service实现类
@@ -74,5 +77,15 @@ public class ManagerServiceImpl implements ManagerService{
         boolean a=managerDao.insertManager(manager);
 
         return a;
+    }
+
+    @Override
+    public List<MgrRole> queryRolesByName(String name) {
+        return managerDao.findRolesByName(name);
+    }
+
+    @Override
+    public List<MgrPermission> queryPermissionByName(String name) {
+        return managerDao.findPremissionByName(name);
     }
 }

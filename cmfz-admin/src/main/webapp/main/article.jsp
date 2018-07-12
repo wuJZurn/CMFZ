@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8" isELIgnored="false" %>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/datagrid-detailview.js"></script>
 
 <script type="text/javascript">
@@ -18,10 +20,12 @@ $(function() {
             {field:'masterId',title:'所属上师ID',width:80,sortable:true},
             {field:'articleStatus',title:'文章状态',width:80,sortable:true},
             {field:'articleDate',title:'创建时间',width:80,sortable:true},
+            <shiro:hasRole name="root">
             {field:'status',title:'操作',width:80,align:'center',formatter:function(value,row,index){
                 //$("#del").linkbutton({});
                 return "<a name='artA' class='easyui-linkbutton' data-options=\"height:20,iconCls:'icon-edit'\" onClick='getArticleBtn()'>查看详情</a>";
             }}
+            </shiro:hasRole>
         ]],
         onLoadSuccess:function(){
             $("a[name='artA']").linkbutton({});   

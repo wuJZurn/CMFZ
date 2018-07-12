@@ -5,7 +5,8 @@
 
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager" />
-
+        <property name="loginUrl" value="/login.jsp"></property>
+        <property name="unauthorizedUrl" value="/error.jsp"></property>
         <property name="filterChainDefinitions">
             <value>
                 /main/**=authc
@@ -20,6 +21,11 @@
             </list>
         </property>
         <property name="rememberMeManager" ref="rememberMeManager" ></property>
+        <property name="cacheManager" ref="ehCacheManager"></property>
+    </bean>
+
+    <bean id="ehCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"></property>
     </bean>
 
     <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">

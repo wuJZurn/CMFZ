@@ -9,6 +9,7 @@
         <result property="mgrStatus" column="mgr_status"/>
     </resultMap>
 
+
     <select id="selectByName" resultMap="ManagerMap">
         select mgr_id,mgr_name,mgr_pwd,salt,mgr_status from manager where mgr_name=#{name}
     </select>
@@ -16,5 +17,59 @@
     <insert id="insertManager">
         insert into manager values(#{mgrId},#{mgrName},#{mgrPwd},#{salt},#{mgrStatus})
     </insert>
+
+    <select id="findRolesByName" resultType="MgrRole">
+        SELECT
+            role_id roleId,role_name roleName,role_tag roleTag
+        FROM
+            sys_role
+        WHERE
+            role_id IN (
+        SELECT
+            role_id
+        FROM
+            sys_manager_role
+        WHERE
+            mgr_id = (
+                SELECT
+                    mgr_id
+                FROM
+                    manager
+                 WHERE
+                     mgr_name = #{name}
+            )
+        )
+    </select>
+
+    <select id="findPremissionByName" resultType="MgrPermission">
+        SELECT
+            permission_id permissionId,resource_name resourceName,resource_tag resourceTag
+            ,resource_url resourceUrl,permission_tag permissionTag
+        FROM
+            sys_permission
+        WHERE
+            permission_id IN (
+                SELECT
+                    permission_id
+                FROM
+                    sys_role_permission
+                WHERE
+                    role_id IN (
+                        SELECT
+                            role_id
+                        FROM
+                            sys_manager_role
+                        WHERE
+                            mgr_id = (
+                        SELECT
+                            mgr_id
+                        FROM
+                            manager
+                        WHERE
+                            mgr_name = #{name}
+                        )
+                    )
+        )
+    </select>
     
 </mapper>
