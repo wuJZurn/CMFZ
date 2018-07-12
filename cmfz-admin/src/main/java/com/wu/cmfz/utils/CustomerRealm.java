@@ -10,7 +10,6 @@ import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
 
 /**
  * Created by wu on 2018/7/11.
@@ -24,6 +23,8 @@ public class CustomerRealm extends AuthorizingRealm {
     
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+        
+
         return null;
     }
 

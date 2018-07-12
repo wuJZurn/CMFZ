@@ -60,4 +60,12 @@ public class ManagerController {
             return "login";
         }
     }
+
+
+    @RequestMapping("/logoutManager")
+    public String logoutManager(){
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
+        return "login";
+    }
 }
