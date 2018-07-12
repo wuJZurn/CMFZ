@@ -27,7 +27,7 @@ public class ManagerServiceImpl implements ManagerService{
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS,readOnly = true)
-    public Manager queryManagerByName(String name, String pwd) {
+    public Manager queryManagerByName(String name) {
         return managerDao.selectByName(name);
        /* String password= DigestUtils.md5Hex(pwd+manager.getSalt());
         System.out.println(pwd);

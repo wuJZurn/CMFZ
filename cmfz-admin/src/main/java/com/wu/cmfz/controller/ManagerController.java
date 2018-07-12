@@ -5,10 +5,13 @@ import com.wu.cmfz.service.ManagerService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.List;
 
 /**
  * 管理员Controller类
@@ -40,6 +44,10 @@ public class ManagerController {
         Subject subject = SecurityUtils.getSubject();
         try {
             subject.login(new UsernamePasswordToken(managerName,password,rememberMe));
+
+            //编程式授权
+            System.out.println(subject.hasRole("root"));
+
             if(checkName!=null){
                 Cookie cookie =new Cookie("checkName",URLEncoder.encode(managerName,"UTF-8"));
                 cookie.setMaxAge(2400);
@@ -67,5 +75,21 @@ public class ManagerController {
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
         return "login";
+    }
+
+    /**
+     * shiro提供了一套权限注解，控制方法是否可以访问
+     * 注解失效：在访问之前，判断是否有调用访问方法的权限
+     * aop:判断权限 + 原始方法
+     *
+     * 异常处理：全局异常处理
+     * @return
+     */
+    @RequestMapping("/queryAllManager")
+    @ResponseBody
+    //@RequiresRoles({"root","admin","user"})
+    @RequiresRoles({"dd"})
+    public String queryAllManager(){
+        return "success";
     }
 }

@@ -9,7 +9,6 @@
         <property name="filterChainDefinitions">
             <value>
                 /main/**=authc
-                /index.jsp=authc
             </value>
         </property>
     </bean>

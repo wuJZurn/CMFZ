@@ -4,6 +4,7 @@ import com.wu.cmfz.entity.Manager;
 import com.wu.cmfz.service.ManagerService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
@@ -23,7 +24,20 @@ public class CustomerRealm extends AuthorizingRealm {
     
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        
+
+        String userName = (String) principalCollection.getPrimaryPrincipal();
+        Manager manager = managerService.queryManagerByName(userName);
+        if(manager.getMgrName().equals(userName)){
+            SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+            info.addRole("root");
+            info.addRole("admin");
+            info.addRole("user");
+
+            info.addStringPermission("user:add");
+            info.addStringPermission("user:query");
+            info.addStringPermission("user:remove");
+            return info;
+        }
 
         return null;
     }
@@ -32,8 +46,8 @@ public class CustomerRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
         String username = usernamePasswordToken.getUsername();
-        char[] password = usernamePasswordToken.getPassword();
-        Manager manager = managerService.queryManagerByName(username,String.valueOf(password));
+        //char[] password = usernamePasswordToken.getPassword();
+        Manager manager = managerService.queryManagerByName(username);
         if(manager!=null){
             return new SimpleAuthenticationInfo(manager.getMgrName(),
                     manager.getMgrPwd(), ByteSource.Util.bytes(manager.getSalt()),this.getName());
