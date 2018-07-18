@@ -2,6 +2,11 @@ package com.wu.cmfz.controller;
 
 import com.wu.cmfz.entity.Picture;
 import com.wu.cmfz.service.PictureService;
+import org.csource.common.MyException;
+import org.csource.fastdfs.ClientGlobal;
+import org.csource.fastdfs.StorageClient;
+import org.csource.fastdfs.TrackerClient;
+import org.csource.fastdfs.TrackerServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +39,17 @@ public class PictureController {
 
     @RequestMapping("/addPic")
     @ResponseBody
-    public String addPic(Picture picture, MultipartFile myFile,HttpSession session) throws IOException {
+    public String addPic(Picture picture, MultipartFile myFile,HttpSession session) throws IOException, MyException {
+
+        ClientGlobal.init("fdfs_client.conf");
+        TrackerClient trackerClient = new TrackerClient();
+        TrackerServer trackerServer = trackerClient.getConnection();
+        StorageClient client = new StorageClient(trackerServer, null);
+        String[] uploadFile = client.upload_file(myFile.getBytes(), myFile.getOriginalFilename().split("\\.")[1], null);
+        for (String s : uploadFile) {
+            System.out.println(s);
+        }
+
         String realPath=session.getServletContext().getRealPath("").replace("admin","upload");
         String fileName= UUID.randomUUID().toString().replace("-","");
         String oldName = myFile.getOriginalFilename();
@@ -48,6 +63,7 @@ public class PictureController {
         picture.setPicturePath("/"+oldName);
         picture.setPictureId(fileName);
         boolean a=pictureService.addPic(picture);
+
         if(a){
             return "success";
         }
